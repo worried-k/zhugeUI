@@ -1,0 +1,22 @@
+{
+  "name": "zhugeui",
+  "version": "1.0.0",
+  "description": "诸葛io组件库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/struggling-bird/zhugeUI.git"
+  },
+  "keywords": [
+    "zhugeio"
+  ],
+  "author": "dongyongqiang@zhugeio.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/struggling-bird/zhugeUI/issues"
+  },
+  "homepage": "https://github.com/struggling-bird/zhugeUI#readme"
+}
