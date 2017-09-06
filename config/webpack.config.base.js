@@ -61,18 +61,36 @@ const config = {
       },
       {
         test: /\.html$/,
-        use: [ {
-          loader: 'html-loader',
-          options: {
-            minimize: true,
-            removeComments: true,
-            collapseWhitespace: true,
-            removeAttributeQuotes: false,
-            minifyCSS: false,
-            minifyJS: true
-          }
-        }
-        ]
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              minimize: true,
+              removeComments: true,
+              collapseWhitespace: true,
+              removeAttributeQuotes: false,
+              minifyCSS: false,
+              minifyJS: true
+            }
+          },
+          {
+            loader: 'markup-inline-loader',
+            options: {
+              svgo: {
+                plugins: [
+                  {
+                    removeTitle: true,
+                  },
+                  {
+                    removeUselessStrokeAndFill: true,
+                  },
+                  {
+                    removeUnknownsAndDefaults: false,
+                  },
+                ],
+              },
+            }
+          }]
       }]
   }
 }
