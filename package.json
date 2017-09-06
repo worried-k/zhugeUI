@@ -4,7 +4,8 @@
   "description": "诸葛io组件库",
   "main": "index.js",
   "scripts": {
-    "start": "node config/server.dev.js"
+    "start": "node config/server.dev.js",
+    "build": "webpack --config config/webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
