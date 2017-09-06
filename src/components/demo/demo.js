@@ -4,9 +4,14 @@
  * @author yqdong
  *
  */
+
+import template from './template/index.html'
+import './styles/main.sass'
+
 function Demo () {
   const name = 'demo'
-  console.log(`this is ${name}!!!`)
+  console.log(`this is ${name}!!`)
+  document.body.innerHTML = template
 }
 
 Demo.prototype = {
