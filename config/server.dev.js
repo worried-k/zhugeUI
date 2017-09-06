@@ -46,7 +46,7 @@ const readyPromise = new Promise(resolve => {
 
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
-  opn(uri + '')
+  // opn(uri + '')
   _resolve()
 })
 

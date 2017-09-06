@@ -13,9 +13,12 @@ const path = require('path')
 
 module.exports = merge(baseConfig, {
   entry: {
-    demoIndex: path.resolve(__dirname, '../src/main.js')
+    demoIndex: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/main.js'))
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': 'development'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
