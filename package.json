@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/struggling-bird/zhugeUI.git"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "zhugeio"
   ],

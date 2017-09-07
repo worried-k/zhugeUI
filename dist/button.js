@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -202,7 +202,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(3);
+var	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -524,6 +524,191 @@ function updateLink (link, options, obj) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _util = __webpack_require__(3);
+
+var _util2 = _interopRequireDefault(_util);
+
+__webpack_require__(4);
+
+__webpack_require__(7);
+
+var _button = __webpack_require__(9);
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Created by yqdong on 2017/9/6.
+ * qq: 1013501639
+ * @author yqdong
+ *
+ */
+function Button(container, option) {
+  var options = _util2.default.mergeObject({
+    theme: 'normal', // normal,border
+    type: 'normal', // normal, primary, danger, secondary, success
+    size: 'normal', // normal small large
+    disabled: false,
+
+    content: '',
+
+    icon: {
+      show: false,
+      iconClass: ''
+    },
+    className: '',
+    onClick: null
+  }, option);
+
+  for (var prop in options) {
+    this['_' + prop] = options[prop];
+  }
+  this._dom = {
+    container: container,
+    icon: null,
+    content: null
+  };
+  this._class = [];
+  if (this._className) {
+    this._class.push(this._className);
+  }
+  this._init();
+}
+
+Button.prototype = {
+  constructor: Button,
+  /**
+   *
+   * @private
+   */
+  _init: function _init() {
+    this._render();
+    this._initEventBind();
+  },
+  /**
+   *
+   * @private
+   */
+  _render: function _render() {
+    this._resetStyle();
+    this._dom.container.append(_util2.default.strReplace(_button2.default, {
+      iconClass: this._icon.iconClass,
+      displayIcon: this._icon.show ? 'inline-block' : 'none',
+      content: this._content
+    }));
+
+    this._dom.content = this._dom.container.find('span');
+    this._dom.icon = this._dom.container.find('i');
+  },
+  /**
+   *
+   * @private
+   */
+  _resetStyle: function _resetStyle() {
+    this._dom.container.addClass(this._class.join(' '));
+    this._dom.container.attr('class', '');
+
+    var mainClass = this._theme + '-' + this._type;
+
+    this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
+
+    if (this._disabled) {
+      this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
+    }
+  },
+  /**
+   *
+   * @private
+   */
+  _initEventBind: function _initEventBind() {
+    this._dom.container.bind('click', this, this.__onClick);
+  },
+  /**
+   *
+   * @private
+   */
+  __onClick: function __onClick(event) {
+    var context = event.data;
+    var callback = context._onClick;
+    if (_util2.default.isFunction(callback)) {
+      callback.call(context);
+    }
+  },
+  /**
+   *
+   * @param flag
+   * @returns {Button}
+   */
+  disable: function disable(flag) {
+    this._disabled = flag;
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param type
+   * @returns {Button}
+   */
+  setType: function setType(type) {
+    this._type = type;
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param content
+   * @returns {Button}
+   */
+  setContent: function setContent(content) {
+    this._content = content;
+    this._dom.content.text(content);
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param clazz
+   */
+  addClass: function addClass(clazz) {
+    this._class.push(clazz);
+    this._dom.container.addClass(clazz);
+    return this;
+  },
+  /**
+   *
+   * @param clazz
+   */
+  removeClass: function removeClass(clazz) {
+    var index = this._class.indexOf(clazz);
+    if (index > -1) {
+      this._class.splice(index, 1);
+      this._dom.container.removeClass(clazz);
+    }
+    return this;
+  },
+  /**
+   *
+   */
+  destroy: function destroy() {
+    this._dom.container.unbind('click');
+    this._dom.container.remove();
+  }
+};
+
+exports.default = Button;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * 乐享通用js
  * Created by dongyq on 9/4/15.
@@ -809,7 +994,52 @@ var util = {
 exports.default = util;
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(5);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./reset.sass", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./reset.sass");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "[class^='zg-'], [class*=' zg-'] {\n  box-sizing: border-box;\n  font-family: \"PingFang SC\", Arial, \"Microsoft YaHei\", sans-serif;\n  padding: 0;\n  margin: 0;\n  outline: none;\n  vertical-align: baseline;\n  list-style: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -904,211 +1134,6 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(2);
-
-var _util2 = _interopRequireDefault(_util);
-
-__webpack_require__(5);
-
-__webpack_require__(7);
-
-var _button = __webpack_require__(9);
-
-var _button2 = _interopRequireDefault(_button);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Created by yqdong on 2017/9/6.
- * qq: 1013501639
- * @author yqdong
- *
- */
-function Button(container, option) {
-  var options = _util2.default.mergeObject({
-    theme: 'normal', // normal,border
-    type: 'normal', // normal, primary, danger, secondary, success
-    size: 'normal', // normal small large
-    disabled: false,
-
-    content: '',
-
-    icon: {
-      show: false,
-      iconClass: ''
-    },
-
-    onClick: null
-  }, option);
-
-  for (var prop in options) {
-    this['_' + prop] = options[prop];
-  }
-  this._dom = {
-    container: container,
-    icon: null,
-    content: null
-  };
-
-  this._init();
-}
-
-Button.prototype = {
-  constructor: Button,
-  /**
-   *
-   * @private
-   */
-  _init: function _init() {
-    this._render();
-    this._initEventBind();
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function _render() {
-    this._resetStyle();
-    this._dom.container.append(_util2.default.strReplace(_button2.default, {
-      iconClass: this._icon.iconClass,
-      displayIcon: this._icon.show ? 'inline-block' : 'none',
-      content: this._content
-    }));
-
-    this._dom.content = this._dom.container.find('span');
-    this._dom.icon = this._dom.container.find('i');
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function _resetStyle() {
-    this._dom.container.attr('class', '');
-
-    var mainClass = this._theme + '-' + this._type;
-
-    this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
-
-    if (this._disabled) {
-      this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
-    }
-  },
-  /**
-   *
-   * @private
-   */
-  _initEventBind: function _initEventBind() {
-    this._dom.container.bind('click', this, this.__onClick);
-  },
-  /**
-   *
-   * @private
-   */
-  __onClick: function __onClick(event) {
-    var context = event.data;
-    var callback = context._onClick;
-    if (_util2.default.isFunction(callback)) {
-      callback.call(context);
-    }
-  },
-  /**
-   *
-   * @param flag
-   * @returns {Button}
-   */
-  disable: function disable(flag) {
-    this._disabled = flag;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param type
-   * @returns {Button}
-   */
-  setType: function setType(type) {
-    this._type = type;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param content
-   * @returns {Button}
-   */
-  setContent: function setContent(content) {
-    this._content = content;
-    this._dom.content.text(content);
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   */
-  destroy: function destroy() {
-    this._dom.container.unbind('click');
-    this._dom.container.remove();
-  }
-};
-
-exports.default = Button;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(6);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./reset.sass", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./reset.sass");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "[class^='zg-'], [class*=' zg-'] {\n  box-sizing: border-box;\n  font-family: \"PingFang SC\", Arial, \"Microsoft YaHei\", sans-serif;\n  padding: 0;\n  margin: 0;\n  outline: none;\n  vertical-align: baseline;\n  list-style: none; }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1148,7 +1173,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".zg-button {\n  display: inline-block;\n  cursor: pointer;\n  border-radius: 3px; }\n  .zg-button i {\n    margin-right: 0.5em;\n    position: relative;\n    top: 2px; }\n\n.zg-button.only-icon {\n  padding: .5em .5em; }\n  .zg-button.only-icon i {\n    margin-right: 0; }\n\n.zg-button.small {\n  font-size: 12px;\n  padding: .85em 1em; }\n\n.zg-button.normal-size {\n  font-size: 14px;\n  padding: .85em 1.5em; }\n\n.zg-button.large {\n  font-size: 16px;\n  padding: .85em 3em; }\n\n.zg-button.normal {\n  background: #fafafa;\n  color: #354052;\n  border: 1px solid #dadada; }\n  .zg-button.normal:hover {\n    background: white; }\n\n.zg-button.normal-primary {\n  background: #09aef5;\n  color: white; }\n  .zg-button.normal-primary:hover {\n    background: #1eb4ff; }\n\n.zg-button.normal-danger {\n  background: #f55858;\n  color: white; }\n  .zg-button.normal-danger:hover {\n    background: #ff7575; }\n\n.zg-button.normal-secondary {\n  background: white;\n  border: 1px solid #dadada; }\n  .zg-button.normal-secondary:hover {\n    background: #e9f7fd;\n    color: #09aef5; }\n\n.zg-button.normal-success {\n  background: #29bd76;\n  color: white; }\n  .zg-button.normal-success:hover {\n    background: #31cc81; }\n\n.zg-button.normal-disable {\n  background: #e1e3e6 !important;\n  color: white !important;\n  cursor: not-allowed !important; }\n\n.zg-button.border-normal {\n  background: white;\n  border: 1px solid #dadada;\n  color: #354052; }\n  .zg-button.border-normal:hover {\n    border-color: #09aef5;\n    color: #09aef5; }\n\n.zg-button.border-normal.checked {\n  background: #e9f7fd;\n  border: 1px solid #09aef5;\n  color: #09aef5; }\n\n.zg-button.border-primary {\n  border: 1px solid #09aef5;\n  color: #09aef5;\n  background: white; }\n  .zg-button.border-primary:hover {\n    background: #e9f7fd; }\n\n.zg-button.border-danger {\n  background: white;\n  border: 1px solid #f55858;\n  color: #f55858; }\n  .zg-button.border-danger:hover {\n    background: #ffd7d7; }\n\n.zg-button.border-success {\n  background: white;\n  border: 1px solid #29bd76;\n  color: #29bd76; }\n  .zg-button.border-success:hover {\n    background: #d1ffe8; }\n\n.zg-button.border-secondary {\n  background: white;\n  border: 1px solid #dadada;\n  color: #354052; }\n  .zg-button.border-secondary:hover {\n    background: #e9f7fd;\n    color: #09aef5; }\n\n.zg-button.border-disable {\n  border: 1px solid #e1e3e6 !important;\n  color: #e1e3e6 !important;\n  background: white !important;\n  cursor: not-allowed !important; }\n", ""]);
+exports.push([module.i, ".zg-button {\n  display: inline-block;\n  cursor: pointer;\n  border-radius: 3px; }\n  .zg-button i {\n    margin-right: 0.5em;\n    position: relative;\n    top: 1px; }\n\n.zg-button.only-icon {\n  padding: .5em .5em; }\n  .zg-button.only-icon i {\n    margin-right: 0; }\n\n.zg-button.small {\n  font-size: 12px;\n  padding: .85em 1em; }\n\n.zg-button.normal-size {\n  font-size: 14px;\n  padding: .85em 1.5em; }\n\n.zg-button.large {\n  font-size: 16px;\n  padding: .85em 3em; }\n\n.zg-button.normal {\n  background: #fafafa;\n  color: #354052;\n  border: 1px solid #dadada; }\n  .zg-button.normal:hover {\n    background: white; }\n\n.zg-button.normal-primary {\n  background: #09aef5;\n  color: white; }\n  .zg-button.normal-primary:hover {\n    background: #1eb4ff; }\n\n.zg-button.normal-danger {\n  background: #f55858;\n  color: white; }\n  .zg-button.normal-danger:hover {\n    background: #ff7575; }\n\n.zg-button.normal-secondary {\n  background: white;\n  border: 1px solid #dadada; }\n  .zg-button.normal-secondary:hover {\n    background: #e9f7fd;\n    color: #09aef5; }\n\n.zg-button.normal-success {\n  background: #29bd76;\n  color: white; }\n  .zg-button.normal-success:hover {\n    background: #31cc81; }\n\n.zg-button.normal-disable {\n  background: #e1e3e6 !important;\n  color: white !important;\n  cursor: not-allowed !important; }\n\n.zg-button.border-normal {\n  background: white;\n  border: 1px solid #dadada;\n  color: #354052; }\n  .zg-button.border-normal:hover {\n    border-color: #09aef5;\n    color: #09aef5; }\n\n.zg-button.border-primary {\n  border: 1px solid #09aef5;\n  color: #09aef5;\n  background: white; }\n  .zg-button.border-primary:hover {\n    background: #e9f7fd; }\n\n.zg-button.border-danger {\n  background: white;\n  border: 1px solid #f55858;\n  color: #f55858; }\n  .zg-button.border-danger:hover {\n    background: #ffd7d7; }\n\n.zg-button.border-success {\n  background: white;\n  border: 1px solid #29bd76;\n  color: #29bd76; }\n  .zg-button.border-success:hover {\n    background: #d1ffe8; }\n\n.zg-button.border-secondary {\n  background: white;\n  border: 1px solid #dadada;\n  color: #354052; }\n  .zg-button.border-secondary:hover {\n    background: #e9f7fd;\n    color: #09aef5; }\n\n.zg-button.border-disable {\n  border: 1px solid #e1e3e6 !important;\n  color: #e1e3e6 !important;\n  background: white !important;\n  cursor: not-allowed !important; }\n", ""]);
 
 // exports
 
