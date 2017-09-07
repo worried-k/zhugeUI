@@ -13,7 +13,8 @@ const path = require('path')
 
 module.exports = merge(baseConfig, {
   entry: {
-    demoIndex: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/main.js'))
+    demoIndex: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/main.js')),
+    demoButton: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/components/button/demo/index.js'))
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -26,6 +27,13 @@ module.exports = merge(baseConfig, {
       hash: true,
       inject: true,
       chunks: ['demoIndex']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'button.html',
+      template: path.join(__dirname, '../src/components/button/demo/index.html'),
+      hash: true,
+      inject: true,
+      chunks: ['demoButton']
     }),
     new FriendlyErrorsPlugin()
   ]

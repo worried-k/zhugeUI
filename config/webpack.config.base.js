@@ -8,6 +8,8 @@ const path = require('path')
 
 const config = {
   entry: {
+    button: path.resolve(__dirname, '../src/components/button/button.js'),
+
     demo: path.resolve(__dirname, '../src/components/demo/demo.js')
   },
   output: {
@@ -20,6 +22,14 @@ const config = {
   ],
   module: {
     rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader'
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader'
+      },
       {
         test: /\.js$/,
         loader: 'eslint-loader',

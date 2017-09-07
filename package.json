@@ -20,7 +20,9 @@
     "url": "https://github.com/struggling-bird/zhugeUI/issues"
   },
   "homepage": "https://github.com/struggling-bird/zhugeUI#readme",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "2.1.4"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
