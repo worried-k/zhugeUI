@@ -23,7 +23,7 @@ function Button (container, option) {
       show: false,
       iconClass: ''
     },
-
+    className: '',
     onClick: null
   }, option)
 
@@ -35,7 +35,10 @@ function Button (container, option) {
     icon: null,
     content: null
   }
-
+  this._class = []
+  if (this._className) {
+    this._class.push(this._className)
+  }
   this._init()
 }
 
@@ -69,6 +72,7 @@ Button.prototype = {
    * @private
    */
   _resetStyle: function () {
+    this._dom.container.addClass(this._class.join(' '))
     this._dom.container.attr('class', '')
 
     let mainClass = this._theme + '-' + this._type
@@ -129,6 +133,27 @@ Button.prototype = {
     this._content = content
     this._dom.content.text(content)
     this._resetStyle()
+    return this
+  },
+  /**
+   *
+   * @param clazz
+   */
+  addClass: function (clazz) {
+    this._class.push(clazz)
+    this._dom.container.addClass(clazz)
+    return this
+  },
+  /**
+   *
+   * @param clazz
+   */
+  removeClass: function (clazz) {
+    let index = this._class.indexOf(clazz)
+    if (index > -1) {
+      this._class.splice(index, 1)
+      this._dom.container.removeClass(clazz)
+    }
     return this
   },
   /**

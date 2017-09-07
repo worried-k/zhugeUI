@@ -1,0 +1,29 @@
+@import "../../../assets/styles/constants"
+.zg-button-group
+  .zg-button
+    border-radius: 0
+    margin-left: -1px
+    &:hover
+      border-color: 1px solid $bg-info-dark
+      &+.zg-button
+        border-left-color: $bg-info-dark
+    &:first-child
+      border-left: 1px solid $border-color-border
+      border-top-left-radius: $border-radius
+      border-bottom-left-radius: $border-radius
+      right: 0
+      &:hover
+        border-left: 1px solid $bg-info-dark
+        border-right: 1px solid $bg-info-dark
+    &:last-child
+      border-right: 1px solid $border-color-border
+      border-top-right-radius: $border-radius
+      border-bottom-right-radius: $border-radius
+      &:hover
+        border-right-color: $bg-info-dark
+  .zg-button.border-normal.checked
+    background: $bg-info-light
+    border: 1px solid $bg-info-dark
+    color: $bg-info-dark
+    &+.zg-button
+      border-left-color: $bg-info-dark

@@ -5,6 +5,7 @@
  *
  */
 import Button from '../button'
+import ButtonGroup from '../buttonGroup'
 import $ from 'jquery'
 import template from './template.html'
 import '../../../assets/icons/style.sass'
@@ -44,4 +45,23 @@ window.disabled1 = new Button($('#disabled1'), {
   theme: 'border',
   disabled: true,
   content: 'disabled'
+})
+
+window.btnGroup = new ButtonGroup($('#btnGroup'), {
+  store: [
+    {
+      name: '列表'
+    },
+    {
+      name: '画像'
+    },
+    {
+      name: 'other',
+      icon: 'icon-funnel'
+    }
+  ],
+  size: 'small',
+  onChange: function (data) {
+    console.log('选择了', data)
+  }
 })
