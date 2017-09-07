@@ -10,12 +10,12 @@ const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const path = require('path')
+const demoConfig = require('./getDemoConfig')
 
 module.exports = merge(baseConfig, {
-  entry: {
-    demoIndex: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/main.js')),
-    demoButton: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/components/button/demo/index.js'))
-  },
+  entry: merge({
+    demoIndex: [path.resolve(__dirname, './dev-client.js')].concat(path.resolve(__dirname, '../src/main.js'))
+  }, demoConfig.entry),
   plugins: [
     new webpack.DefinePlugin({
       'process.env': 'development'
@@ -28,13 +28,6 @@ module.exports = merge(baseConfig, {
       inject: true,
       chunks: ['demoIndex']
     }),
-    new HtmlWebpackPlugin({
-      filename: 'button.html',
-      template: path.join(__dirname, '../src/components/button/demo/index.html'),
-      hash: true,
-      inject: true,
-      chunks: ['demoButton']
-    }),
     new FriendlyErrorsPlugin()
-  ]
+  ].concat(demoConfig.plugins)
 })

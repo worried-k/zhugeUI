@@ -4,6 +4,3 @@
  * @author yqdong
  *
  */
-import Demo from './components/demo/demo'
-
-console.log(new Demo())

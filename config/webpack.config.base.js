@@ -8,9 +8,7 @@ const path = require('path')
 
 const config = {
   entry: {
-    button: path.resolve(__dirname, '../src/components/button/button.js'),
-
-    demo: path.resolve(__dirname, '../src/components/demo/demo.js')
+    button: path.resolve(__dirname, '../src/components/button/button.js')
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
