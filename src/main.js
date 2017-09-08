@@ -7,9 +7,14 @@
 import button from './components/button/button'
 import buttonGroup from './components/button/buttonGroup'
 import zoomPanel from './components/zoomPanel/zoomPanel'
+import zoomAbleSunburst from './components/charts/sunburst/zoomAbleSunburst'
 
+let charts = {
+  zoomAbleSunburst
+}
 export {
   button,
   buttonGroup,
-  zoomPanel
+  zoomPanel,
+  charts
 }
