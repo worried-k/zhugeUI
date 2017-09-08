@@ -10,11 +10,17 @@ import template from './template.html'
 $('body').append(template)
 
 let demo = new ZoomPanel('#demo', {
-  header: '123',
-  content: '456',
-  onChange (isFull) {
-    console.log('isFull：' + isFull)
+  onResize (isFull) {
+    demo.updateDomContent((content) => {
+      content.append(`<p>isFull：${isFull}</p>`)
+    })
   }
 })
 
-console.log(demo)
+demo.updateDomHeader((header) => {
+  header.append('12345')
+})
+
+demo.updateDomContent((content) => {
+  content.append('67890')
+})

@@ -16,9 +16,7 @@ import template from './template/zoomPanel.html'
 class ZoomPanel {
   constructor (container, option) {
     let options = util.mergeObject({
-      header: '',
-      content: '',
-      onChange: null
+      onResize: null
     }, option)
     this._options = {}
     for (let prop in options) {
@@ -27,7 +25,9 @@ class ZoomPanel {
     this._dom = {
       container: $(container),
       layout: null,
-      zoomBtn: null
+      zoomBtn: null,
+      header: null,
+      content: null
     }
     this.id = Math.random().toString().split('.')[1]
 
@@ -39,52 +39,65 @@ class ZoomPanel {
   }
 
   _init () {
-    this._createLayout()
-    this._initEventBind()
     this._render()
+    this._initEventBind()
   }
 
-  _createLayout () {
+  _render () {
     this._dom.layout = $(util.strReplace(template, {
       id: this.id,
       header: this._options.header,
       content: this._options.content
     }))
+    this._dom.container.append(this._dom.layout)
+
+    for (let name in this._dom) {
+      let el = this._dom.container.find('#' + name + this.id)
+      if (el.length) {
+        this._dom[name] = el
+      }
+    }
   }
 
   _initEventBind () {
-    this._dom.layout.on('click', '#zoomBtn' + this.id, (e) => {
-      let btn = $(e.currentTarget)
+    this._dom.zoomBtn.on('click', () => {
       if (this._store.isFull) {
-        this._revert()
-        this._store.isFull = false
-        btn.removeClass('icon-renovate').addClass('icon-fullscreen').find('span').html('全屏')
+        this._onRevert()
       } else {
-        this._fullScreen()
-        this._store.isFull = true
-        btn.removeClass('icon-fullscreen').addClass('icon-renovate').find('span').html('还原')
+        this._onFullScreen()
       }
-      if (typeof this._options.onChange === 'function') {
-        this._options.onChange(this._store.isFull)
+      if (util.isFunction(this._options.onResize)) {
+        this._options.onResize(this._store.isFull)
       }
     })
   }
 
-  _render () {
-    this._dom.container.append(this._dom.layout)
-    this._dom.zoomBtn = this._dom.container.find('zoomBtn' + this.id)
-  }
-
-  _fullScreen () {
+  _onFullScreen () {
     this._dom.layout.css('position', 'fixed')
+    this._store.isFull = true
+    this._dom.zoomBtn.removeClass('icon-fullscreen').addClass('icon-ic_fullscreen_exit').find('span').html('还原')
   }
 
-  _revert () {
+  _onRevert () {
     this._dom.layout.css('position', 'relative')
+    this._store.isFull = false
+    this._dom.zoomBtn.removeClass('icon-ic_fullscreen_exit').addClass('icon-fullscreen').find('span').html('全屏')
+  }
+
+  updateDomHeader (callback) {
+    if (util.isFunction(callback)) {
+      callback.call(this, this._dom.header)
+    }
+  }
+
+  updateDomContent (callback) {
+    if (util.isFunction(callback)) {
+      callback.call(this, this._dom.content)
+    }
   }
 
   destroy () {
-    this._dom.layout.off('click')
+    this._dom.zoomBtn.off('click')
     this._dom.container.empty()
   }
 }

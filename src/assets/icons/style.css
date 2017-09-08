@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'zhugeio';
-  src:  url('fonts/zhugeio.eot?u02rh8');
-  src:  url('fonts/zhugeio.eot?u02rh8#iefix') format('embedded-opentype'),
-    url('fonts/zhugeio.ttf?u02rh8') format('truetype'),
-    url('fonts/zhugeio.woff?u02rh8') format('woff'),
-    url('fonts/zhugeio.svg?u02rh8#zhugeio') format('svg');
+  src:  url('fonts/zhugeio.eot?guy3ab');
+  src:  url('fonts/zhugeio.eot?guy3ab#iefix') format('embedded-opentype'),
+    url('fonts/zhugeio.ttf?guy3ab') format('truetype'),
+    url('fonts/zhugeio.woff?guy3ab') format('woff'),
+    url('fonts/zhugeio.svg?guy3ab#zhugeio') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -110,6 +110,9 @@
 }
 .icon-add:before {
   content: "\e91e";
+}
+.icon-ic_fullscreen_exit:before {
+  content: "\e95c";
 }
 .icon-upload_box:before {
   content: "\e95b";
