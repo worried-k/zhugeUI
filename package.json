@@ -1,6 +1,6 @@
 {
   "name": "zhugeui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "诸葛io组件库",
   "main": "dist/zhugeUI.js",
   "scripts": {
