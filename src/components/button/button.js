@@ -10,53 +10,44 @@ import '../../assets/styles/reset.sass'
 import './styles/button.sass'
 
 import template from './template/button.html'
-function Button (container, option) {
-  let options = util.mergeObject({
-    theme: 'normal', // normal,border
-    type: 'normal', // normal, primary, danger, secondary, success
-    size: 'normal', // normal small large
-    disabled: false,
 
-    content: '',
+class Button {
+  constructor (container, option) {
+    let options = util.mergeObject({
+      theme: 'normal', // normal,border
+      type: 'normal', // normal, primary, danger, secondary, success
+      size: 'normal', // normal small large
+      disabled: false,
 
-    icon: {
-      show: false,
-      iconClass: ''
-    },
-    className: '',
-    onClick: null
-  }, option)
+      content: '',
 
-  for (let prop in options) {
-    this['_' + prop] = options[prop]
+      icon: {
+        show: false,
+        iconClass: ''
+      },
+      className: '',
+      onClick: null
+    }, option)
+
+    for (let prop in options) {
+      this['_' + prop] = options[prop]
+    }
+    this._dom = {
+      container: container,
+      icon: null,
+      content: null
+    }
+    this._class = []
+    if (this._className) {
+      this._class.push(this._className)
+    }
+    this._init()
   }
-  this._dom = {
-    container: container,
-    icon: null,
-    content: null
-  }
-  this._class = []
-  if (this._className) {
-    this._class.push(this._className)
-  }
-  this._init()
-}
-
-Button.prototype = {
-  constructor: Button,
-  /**
-   *
-   * @private
-   */
-  _init: function () {
+  _init () {
     this._render()
     this._initEventBind()
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function () {
+  }
+  _render () {
     this._resetStyle()
     this._dom.container.append(util.strReplace(template, {
       iconClass: this._icon.iconClass,
@@ -66,12 +57,9 @@ Button.prototype = {
 
     this._dom.content = this._dom.container.find('span')
     this._dom.icon = this._dom.container.find('i')
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function () {
+  }
+
+  _resetStyle () {
     this._dom.container.addClass(this._class.join(' '))
     this._dom.container.attr('class', '')
 
@@ -85,84 +73,55 @@ Button.prototype = {
     if (this._disabled) {
       this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable')
     }
-  },
-  /**
-   *
-   * @private
-   */
-  _initEventBind: function () {
+  }
+
+  _initEventBind () {
     this._dom.container.bind('click', this, this.__onClick)
-  },
-  /**
-   *
-   * @private
-   */
-  __onClick: function (event) {
+  }
+  __onClick (event) {
     let context = event.data
     const callback = context._onClick
     if (util.isFunction(callback)) {
       callback.call(context)
     }
-  },
-  /**
-   *
-   * @param flag
-   * @returns {Button}
-   */
-  disable: function (flag) {
+  }
+  disable (flag) {
     this._disabled = flag
     this._resetStyle()
     return this
-  },
-  /**
-   *
-   * @param type
-   * @returns {Button}
-   */
-  setType: function (type) {
+  }
+
+  setType (type) {
     this._type = type
     this._resetStyle()
     return this
-  },
-  /**
-   *
-   * @param content
-   * @returns {Button}
-   */
-  setContent: function (content) {
+  }
+
+  setContent (content) {
     this._content = content
     this._dom.content.text(content)
     this._resetStyle()
     return this
-  },
-  /**
-   *
-   * @param clazz
-   */
-  addClass: function (clazz) {
+  }
+
+  addClass (clazz) {
     this._class.push(clazz)
     this._dom.container.addClass(clazz)
     return this
-  },
-  /**
-   *
-   * @param clazz
-   */
-  removeClass: function (clazz) {
+  }
+
+  removeClass (clazz) {
     let index = this._class.indexOf(clazz)
     if (index > -1) {
       this._class.splice(index, 1)
       this._dom.container.removeClass(clazz)
     }
     return this
-  },
-  /**
-   *
-   */
-  destroy: function () {
+  }
+
+  destroy () {
     this._dom.container.unbind('click')
     this._dom.container.remove()
   }
 }
-
 export default Button

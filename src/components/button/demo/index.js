@@ -8,7 +8,7 @@ import Button from '../button'
 import ButtonGroup from '../buttonGroup'
 import $ from 'jquery'
 import template from './template.html'
-import '../../../assets/icons/style.sass'
+import '../../../assets/icons/icon.sass'
 $('body').append(template)
 
 const theme = ['normal', 'border']

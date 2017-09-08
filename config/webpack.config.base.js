@@ -8,8 +8,6 @@ const path = require('path')
 
 const config = {
   entry: {
-    button: path.resolve(__dirname, '../src/components/button/button.js'),
-    buttonGroup: path.resolve(__dirname, '../src/components/button/buttonGroup.js'),
     zhugeUI: path.resolve(__dirname, '../src/main.js')
   },
   output: {

@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -202,7 +202,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(7);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -524,6 +524,175 @@ function updateLink (link, options, obj) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by yqdong on 2017/9/6.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * qq: 1013501639
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @author yqdong
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+var _util = __webpack_require__(3);
+
+var _util2 = _interopRequireDefault(_util);
+
+__webpack_require__(5);
+
+__webpack_require__(8);
+
+var _button = __webpack_require__(10);
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Button = function () {
+  function Button(container, option) {
+    _classCallCheck(this, Button);
+
+    var options = _util2.default.mergeObject({
+      theme: 'normal', // normal,border
+      type: 'normal', // normal, primary, danger, secondary, success
+      size: 'normal', // normal small large
+      disabled: false,
+
+      content: '',
+
+      icon: {
+        show: false,
+        iconClass: ''
+      },
+      className: '',
+      onClick: null
+    }, option);
+
+    for (var prop in options) {
+      this['_' + prop] = options[prop];
+    }
+    this._dom = {
+      container: container,
+      icon: null,
+      content: null
+    };
+    this._class = [];
+    if (this._className) {
+      this._class.push(this._className);
+    }
+    this._init();
+  }
+
+  _createClass(Button, [{
+    key: '_init',
+    value: function _init() {
+      this._render();
+      this._initEventBind();
+    }
+  }, {
+    key: '_render',
+    value: function _render() {
+      this._resetStyle();
+      this._dom.container.append(_util2.default.strReplace(_button2.default, {
+        iconClass: this._icon.iconClass,
+        displayIcon: this._icon.show ? 'inline-block' : 'none',
+        content: this._content
+      }));
+
+      this._dom.content = this._dom.container.find('span');
+      this._dom.icon = this._dom.container.find('i');
+    }
+  }, {
+    key: '_resetStyle',
+    value: function _resetStyle() {
+      this._dom.container.addClass(this._class.join(' '));
+      this._dom.container.attr('class', '');
+
+      var mainClass = this._theme + '-' + this._type;
+
+      this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
+
+      if (this._disabled) {
+        this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
+      }
+    }
+  }, {
+    key: '_initEventBind',
+    value: function _initEventBind() {
+      this._dom.container.bind('click', this, this.__onClick);
+    }
+  }, {
+    key: '__onClick',
+    value: function __onClick(event) {
+      var context = event.data;
+      var callback = context._onClick;
+      if (_util2.default.isFunction(callback)) {
+        callback.call(context);
+      }
+    }
+  }, {
+    key: 'disable',
+    value: function disable(flag) {
+      this._disabled = flag;
+      this._resetStyle();
+      return this;
+    }
+  }, {
+    key: 'setType',
+    value: function setType(type) {
+      this._type = type;
+      this._resetStyle();
+      return this;
+    }
+  }, {
+    key: 'setContent',
+    value: function setContent(content) {
+      this._content = content;
+      this._dom.content.text(content);
+      this._resetStyle();
+      return this;
+    }
+  }, {
+    key: 'addClass',
+    value: function addClass(clazz) {
+      this._class.push(clazz);
+      this._dom.container.addClass(clazz);
+      return this;
+    }
+  }, {
+    key: 'removeClass',
+    value: function removeClass(clazz) {
+      var index = this._class.indexOf(clazz);
+      if (index > -1) {
+        this._class.splice(index, 1);
+        this._dom.container.removeClass(clazz);
+      }
+      return this;
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      this._dom.container.unbind('click');
+      this._dom.container.remove();
+    }
+  }]);
+
+  return Button;
+}();
+
+exports.default = Button;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * 乐享通用js
  * Created by dongyq on 9/4/15.
@@ -809,7 +978,7 @@ var util = {
 exports.default = util;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -818,18 +987,15 @@ exports.default = util;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.buttonGroup = exports.button = undefined;
 
-var _util = __webpack_require__(2);
-
-var _util2 = _interopRequireDefault(_util);
-
-__webpack_require__(4);
-
-__webpack_require__(7);
-
-var _button = __webpack_require__(9);
+var _button = __webpack_require__(2);
 
 var _button2 = _interopRequireDefault(_button);
+
+var _buttonGroup = __webpack_require__(11);
+
+var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -839,168 +1005,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @author yqdong
  *
  */
-function Button(container, option) {
-  var options = _util2.default.mergeObject({
-    theme: 'normal', // normal,border
-    type: 'normal', // normal, primary, danger, secondary, success
-    size: 'normal', // normal small large
-    disabled: false,
-
-    content: '',
-
-    icon: {
-      show: false,
-      iconClass: ''
-    },
-    className: '',
-    onClick: null
-  }, option);
-
-  for (var prop in options) {
-    this['_' + prop] = options[prop];
-  }
-  this._dom = {
-    container: container,
-    icon: null,
-    content: null
-  };
-  this._class = [];
-  if (this._className) {
-    this._class.push(this._className);
-  }
-  this._init();
-}
-
-Button.prototype = {
-  constructor: Button,
-  /**
-   *
-   * @private
-   */
-  _init: function _init() {
-    this._render();
-    this._initEventBind();
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function _render() {
-    this._resetStyle();
-    this._dom.container.append(_util2.default.strReplace(_button2.default, {
-      iconClass: this._icon.iconClass,
-      displayIcon: this._icon.show ? 'inline-block' : 'none',
-      content: this._content
-    }));
-
-    this._dom.content = this._dom.container.find('span');
-    this._dom.icon = this._dom.container.find('i');
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function _resetStyle() {
-    this._dom.container.addClass(this._class.join(' '));
-    this._dom.container.attr('class', '');
-
-    var mainClass = this._theme + '-' + this._type;
-
-    this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
-
-    if (this._disabled) {
-      this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
-    }
-  },
-  /**
-   *
-   * @private
-   */
-  _initEventBind: function _initEventBind() {
-    this._dom.container.bind('click', this, this.__onClick);
-  },
-  /**
-   *
-   * @private
-   */
-  __onClick: function __onClick(event) {
-    var context = event.data;
-    var callback = context._onClick;
-    if (_util2.default.isFunction(callback)) {
-      callback.call(context);
-    }
-  },
-  /**
-   *
-   * @param flag
-   * @returns {Button}
-   */
-  disable: function disable(flag) {
-    this._disabled = flag;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param type
-   * @returns {Button}
-   */
-  setType: function setType(type) {
-    this._type = type;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param content
-   * @returns {Button}
-   */
-  setContent: function setContent(content) {
-    this._content = content;
-    this._dom.content.text(content);
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param clazz
-   */
-  addClass: function addClass(clazz) {
-    this._class.push(clazz);
-    this._dom.container.addClass(clazz);
-    return this;
-  },
-  /**
-   *
-   * @param clazz
-   */
-  removeClass: function removeClass(clazz) {
-    var index = this._class.indexOf(clazz);
-    if (index > -1) {
-      this._class.splice(index, 1);
-      this._dom.container.removeClass(clazz);
-    }
-    return this;
-  },
-  /**
-   *
-   */
-  destroy: function destroy() {
-    this._dom.container.unbind('click');
-    this._dom.container.remove();
-  }
-};
-
-exports.default = Button;
+exports.button = _button2.default;
+exports.buttonGroup = _buttonGroup2.default;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1025,7 +1040,7 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1039,7 +1054,7 @@ exports.push([module.i, "[class^='zg-'], [class*=' zg-'] {\n  box-sizing: border
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 
@@ -1134,13 +1149,13 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(8);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1165,7 +1180,7 @@ if(false) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1179,13 +1194,13 @@ exports.push([module.i, ".zg-button {\n  display: inline-block;\n  cursor: point
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = "<i class=\"{iconClass}\" style=\"display: {displayIcon}\"></i><span>{content}</span>";
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1195,141 +1210,137 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(3);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by yqdong on 2017/9/7.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * qq: 1013501639
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @author yqdong
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+var _button = __webpack_require__(2);
 
 var _button2 = _interopRequireDefault(_button);
 
-var _jquery = __webpack_require__(11);
+var _jquery = __webpack_require__(12);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _util = __webpack_require__(2);
+var _util = __webpack_require__(3);
 
 var _util2 = _interopRequireDefault(_util);
 
-__webpack_require__(12);
+__webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Created by yqdong on 2017/9/7.
- * qq: 1013501639
- * @author yqdong
- *
- */
-function ButtonGroup(container, option) {
-  var options = _util2.default.mergeObject({
-    /**
-     * {
-     *  name: '',
-     *  icon: ''
-     * }
-     */
-    store: [],
-    size: 'normal', // normal, small, large
-    onChange: null,
-    defaultValue: '' // name
-  }, option);
-  options.defaultValue = options.defaultValue || options.store[0].name;
-  for (var prop in options) {
-    this['_' + prop] = options[prop];
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ButtonGroup = function () {
+  function ButtonGroup(container, option) {
+    _classCallCheck(this, ButtonGroup);
+
+    var options = _util2.default.mergeObject({
+      /**
+       * {
+      *  name: '',
+      *  icon: ''
+      * }
+       */
+      store: [],
+      size: 'normal', // normal, small, large
+      onChange: null,
+      defaultValue: '' // name
+    }, option);
+    options.defaultValue = options.defaultValue || options.store[0].name;
+    for (var prop in options) {
+      this['_' + prop] = options[prop];
+    }
+
+    this._dom = {
+      container: container
+    };
+    this._buttons = {};
+    this._current = {
+      button: null,
+      data: null
+    };
+    this._init();
   }
 
-  this._dom = {
-    container: container
-  };
-  this._buttons = {};
-  this._current = {
-    button: null,
-    data: null
-  };
-  this._init();
-}
+  _createClass(ButtonGroup, [{
+    key: '_init',
+    value: function _init() {
+      this._render();
+      this._resetStyle();
+    }
+  }, {
+    key: '_render',
+    value: function _render() {
+      var buttonArr = [];
 
-ButtonGroup.prototype = {
-  constructor: ButtonGroup,
-  /**
-   *
-   * @private
-   */
-  _init: function _init() {
-    this._render();
-    this._resetStyle();
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function _render() {
-    var buttonArr = [];
+      this._store.forEach(function (item, i) {
+        var id = Math.random().toString().split('.')[1];
+        var container = (0, _jquery2.default)('<span id="item' + id + '"></span>');
+        var context = this;
 
-    this._store.forEach(function (item, i) {
-      var id = Math.random().toString().split('.')[1];
-      var container = (0, _jquery2.default)('<span id="item' + id + '"></span>');
-      var context = this;
+        this._buttons[item.name] = new _button2.default(container, {
+          theme: 'border',
+          type: 'normal',
+          size: this._size,
+          content: item.name,
+          icon: {
+            show: true,
+            iconClass: item.icon || ''
+          },
+          onClick: function onClick() {
+            context._onClick(this, item);
+          }
+        });
 
-      this._buttons[item.name] = new _button2.default(container, {
-        theme: 'border',
-        type: 'normal',
-        size: this._size,
-        content: item.name,
-        icon: {
-          show: true,
-          iconClass: item.icon || ''
-        },
-        onClick: function onClick() {
-          context._onClick(this, item);
-        }
-      });
+        this._initDefaultValue(item, this._buttons[item.name]);
 
-      this._initDefaultValue(item, this._buttons[item.name]);
-
-      buttonArr.push(container);
-    }, this);
-    this._dom.container.append(buttonArr);
-  },
-  /**
-   *
-   * @private
-   */
-  _initDefaultValue: function _initDefaultValue(data, button) {
-    if (data.name === this._defaultValue) {
-      button.addClass('checked');
-      this._current.button = button;
+        buttonArr.push(container);
+      }, this);
+      this._dom.container.append(buttonArr);
+    }
+  }, {
+    key: '_initDefaultValue',
+    value: function _initDefaultValue(data, button) {
+      if (data.name === this._defaultValue) {
+        button.addClass('checked');
+        this._current.button = button;
+        this._current.data = data;
+      }
+    }
+  }, {
+    key: '_resetStyle',
+    value: function _resetStyle() {
+      this._dom.container.addClass('zg-button-group');
+    }
+  }, {
+    key: '_onClick',
+    value: function _onClick(button, data) {
+      if (this._current.button === button) return;
+      if (this._current.button) {
+        this._current.button.removeClass('checked');
+      }
+      this._current.button = button.addClass('checked');
       this._current.data = data;
+      var callback = this._onChange;
+      if (_util2.default.isFunction(callback)) {
+        callback.call(this, data, button);
+      }
     }
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function _resetStyle() {
-    this._dom.container.addClass('zg-button-group');
-  },
-  /**
-   *
-   * @param button
-   * @param data
-   * @private
-   */
-  _onClick: function _onClick(button, data) {
-    if (this._current.button === button) return;
-    if (this._current.button) {
-      this._current.button.removeClass('checked');
-    }
-    this._current.button = button.addClass('checked');
-    this._current.data = data;
-    var callback = this._onChange;
-    if (_util2.default.isFunction(callback)) {
-      callback.call(this, data, button);
-    }
-  }
-};
+  }]);
+
+  return ButtonGroup;
+}();
 
 exports.default = ButtonGroup;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10546,13 +10557,13 @@ return jQuery;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(13);
+var content = __webpack_require__(14);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -10577,7 +10588,7 @@ if(false) {
 }
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -10589,38 +10600,6 @@ exports.push([module.i, ".zg-button-group .zg-button {\n  border-radius: 0;\n  m
 
 // exports
 
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _button = __webpack_require__(3);
-
-var _button2 = _interopRequireDefault(_button);
-
-var _buttonGroup = __webpack_require__(10);
-
-var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Created by yqdong on 2017/9/6.
- * qq: 1013501639
- * @author yqdong
- *
- */
-exports.default = {
-  button: _button2.default,
-  buttonGroup: _buttonGroup2.default
-};
 
 /***/ })
 /******/ ]);

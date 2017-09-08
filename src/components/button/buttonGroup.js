@@ -9,50 +9,40 @@ import $ from 'jquery'
 import util from '../../utils/util'
 import './styles/buttonGroup.sass'
 
-function ButtonGroup (container, option) {
-  const options = util.mergeObject({
-    /**
-     * {
+class ButtonGroup {
+  constructor (container, option) {
+    const options = util.mergeObject({
+      /**
+       * {
      *  name: '',
      *  icon: ''
      * }
-     */
-    store: [],
-    size: 'normal', // normal, small, large
-    onChange: null,
-    defaultValue: ''// name
-  }, option)
-  options.defaultValue = options.defaultValue || options.store[0].name
-  for (let prop in options) {
-    this['_' + prop] = options[prop]
-  }
+       */
+      store: [],
+      size: 'normal', // normal, small, large
+      onChange: null,
+      defaultValue: ''// name
+    }, option)
+    options.defaultValue = options.defaultValue || options.store[0].name
+    for (let prop in options) {
+      this['_' + prop] = options[prop]
+    }
 
-  this._dom = {
-    container: container
+    this._dom = {
+      container: container
+    }
+    this._buttons = {}
+    this._current = {
+      button: null,
+      data: null
+    }
+    this._init()
   }
-  this._buttons = {}
-  this._current = {
-    button: null,
-    data: null
-  }
-  this._init()
-}
-
-ButtonGroup.prototype = {
-  constructor: ButtonGroup,
-  /**
-   *
-   * @private
-   */
-  _init: function () {
+  _init () {
     this._render()
     this._resetStyle()
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function () {
+  }
+  _render () {
     let buttonArr = []
 
     this._store.forEach(function (item, i) {
@@ -69,7 +59,7 @@ ButtonGroup.prototype = {
           show: true,
           iconClass: item.icon || ''
         },
-        onClick: function () {
+        onClick () {
           context._onClick(this, item)
         }
       })
@@ -79,32 +69,19 @@ ButtonGroup.prototype = {
       buttonArr.push(container)
     }, this)
     this._dom.container.append(buttonArr)
-  },
-  /**
-   *
-   * @private
-   */
-  _initDefaultValue: function (data, button) {
+  }
+  _initDefaultValue (data, button) {
     if (data.name === this._defaultValue) {
       button.addClass('checked')
       this._current.button = button
       this._current.data = data
     }
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function () {
+  }
+  _resetStyle () {
     this._dom.container.addClass('zg-button-group')
-  },
-  /**
-   *
-   * @param button
-   * @param data
-   * @private
-   */
-  _onClick: function (button, data) {
+  }
+
+  _onClick (button, data) {
     if (this._current.button === button) return
     if (this._current.button) {
       this._current.button.removeClass('checked')
@@ -117,5 +94,4 @@ ButtonGroup.prototype = {
     }
   }
 }
-
 export default ButtonGroup
