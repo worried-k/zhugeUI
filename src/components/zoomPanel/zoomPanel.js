@@ -31,9 +31,7 @@ class ZoomPanel {
     }
     this.id = Math.random().toString().split('.')[1]
 
-    this._store = {
-      isFull: false
-    }
+    this._isFull = false
 
     this._init()
   }
@@ -61,26 +59,26 @@ class ZoomPanel {
   }
 
   _onZoomBtnClick () {
-    if (this._store.isFull) {
+    if (this._isFull) {
       this._onRevert()
     } else {
       this._onFullScreen()
     }
     if (util.isFunction(this._options.onResize)) {
-      this._options.onResize(this._store.isFull)
+      this._options.onResize(this._isFull)
     }
   }
 
   _onFullScreen () {
     this._dom.layout.css('position', 'fixed')
-    this._store.isFull = true
+    this._isFull = true
     this._dom.zoomBtn.removeClass('icon-fullscreen').addClass('icon-ic_fullscreen_exit').find('span').html('还原')
     this._dom.layout.removeClass('zg-zoom-panel--normal').addClass('zg-zoom-panel--full')
   }
 
   _onRevert () {
     this._dom.layout.css('position', 'relative')
-    this._store.isFull = false
+    this._isFull = false
     this._dom.zoomBtn.removeClass('icon-ic_fullscreen_exit').addClass('icon-fullscreen').find('span').html('全屏')
     this._dom.layout.removeClass('zg-zoom-panel--full').addClass('zg-zoom-panel--normal')
   }
