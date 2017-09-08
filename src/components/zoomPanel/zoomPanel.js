@@ -75,12 +75,14 @@ class ZoomPanel {
     this._dom.layout.css('position', 'fixed')
     this._store.isFull = true
     this._dom.zoomBtn.removeClass('icon-fullscreen').addClass('icon-ic_fullscreen_exit').find('span').html('还原')
+    this._dom.layout.removeClass('zg-zoom-panel--normal').addClass('zg-zoom-panel--full')
   }
 
   _onRevert () {
     this._dom.layout.css('position', 'relative')
     this._store.isFull = false
     this._dom.zoomBtn.removeClass('icon-ic_fullscreen_exit').addClass('icon-fullscreen').find('span').html('全屏')
+    this._dom.layout.removeClass('zg-zoom-panel--full').addClass('zg-zoom-panel--normal')
   }
 
   updateDomHeader (callback) {
