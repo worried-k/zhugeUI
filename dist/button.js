@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -524,191 +524,6 @@ function updateLink (link, options, obj) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _util = __webpack_require__(3);
-
-var _util2 = _interopRequireDefault(_util);
-
-__webpack_require__(4);
-
-__webpack_require__(7);
-
-var _button = __webpack_require__(9);
-
-var _button2 = _interopRequireDefault(_button);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Created by yqdong on 2017/9/6.
- * qq: 1013501639
- * @author yqdong
- *
- */
-function Button(container, option) {
-  var options = _util2.default.mergeObject({
-    theme: 'normal', // normal,border
-    type: 'normal', // normal, primary, danger, secondary, success
-    size: 'normal', // normal small large
-    disabled: false,
-
-    content: '',
-
-    icon: {
-      show: false,
-      iconClass: ''
-    },
-    className: '',
-    onClick: null
-  }, option);
-
-  for (var prop in options) {
-    this['_' + prop] = options[prop];
-  }
-  this._dom = {
-    container: container,
-    icon: null,
-    content: null
-  };
-  this._class = [];
-  if (this._className) {
-    this._class.push(this._className);
-  }
-  this._init();
-}
-
-Button.prototype = {
-  constructor: Button,
-  /**
-   *
-   * @private
-   */
-  _init: function _init() {
-    this._render();
-    this._initEventBind();
-  },
-  /**
-   *
-   * @private
-   */
-  _render: function _render() {
-    this._resetStyle();
-    this._dom.container.append(_util2.default.strReplace(_button2.default, {
-      iconClass: this._icon.iconClass,
-      displayIcon: this._icon.show ? 'inline-block' : 'none',
-      content: this._content
-    }));
-
-    this._dom.content = this._dom.container.find('span');
-    this._dom.icon = this._dom.container.find('i');
-  },
-  /**
-   *
-   * @private
-   */
-  _resetStyle: function _resetStyle() {
-    this._dom.container.addClass(this._class.join(' '));
-    this._dom.container.attr('class', '');
-
-    var mainClass = this._theme + '-' + this._type;
-
-    this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
-
-    if (this._disabled) {
-      this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
-    }
-  },
-  /**
-   *
-   * @private
-   */
-  _initEventBind: function _initEventBind() {
-    this._dom.container.bind('click', this, this.__onClick);
-  },
-  /**
-   *
-   * @private
-   */
-  __onClick: function __onClick(event) {
-    var context = event.data;
-    var callback = context._onClick;
-    if (_util2.default.isFunction(callback)) {
-      callback.call(context);
-    }
-  },
-  /**
-   *
-   * @param flag
-   * @returns {Button}
-   */
-  disable: function disable(flag) {
-    this._disabled = flag;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param type
-   * @returns {Button}
-   */
-  setType: function setType(type) {
-    this._type = type;
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param content
-   * @returns {Button}
-   */
-  setContent: function setContent(content) {
-    this._content = content;
-    this._dom.content.text(content);
-    this._resetStyle();
-    return this;
-  },
-  /**
-   *
-   * @param clazz
-   */
-  addClass: function addClass(clazz) {
-    this._class.push(clazz);
-    this._dom.container.addClass(clazz);
-    return this;
-  },
-  /**
-   *
-   * @param clazz
-   */
-  removeClass: function removeClass(clazz) {
-    var index = this._class.indexOf(clazz);
-    if (index > -1) {
-      this._class.splice(index, 1);
-      this._dom.container.removeClass(clazz);
-    }
-    return this;
-  },
-  /**
-   *
-   */
-  destroy: function destroy() {
-    this._dom.container.unbind('click');
-    this._dom.container.remove();
-  }
-};
-
-exports.default = Button;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 /**
  * 乐享通用js
  * Created by dongyq on 9/4/15.
@@ -992,6 +807,191 @@ var util = {
   }
 };
 exports.default = util;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _util = __webpack_require__(2);
+
+var _util2 = _interopRequireDefault(_util);
+
+__webpack_require__(4);
+
+__webpack_require__(7);
+
+var _button = __webpack_require__(9);
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Created by yqdong on 2017/9/6.
+ * qq: 1013501639
+ * @author yqdong
+ *
+ */
+function Button(container, option) {
+  var options = _util2.default.mergeObject({
+    theme: 'normal', // normal,border
+    type: 'normal', // normal, primary, danger, secondary, success
+    size: 'normal', // normal small large
+    disabled: false,
+
+    content: '',
+
+    icon: {
+      show: false,
+      iconClass: ''
+    },
+    className: '',
+    onClick: null
+  }, option);
+
+  for (var prop in options) {
+    this['_' + prop] = options[prop];
+  }
+  this._dom = {
+    container: container,
+    icon: null,
+    content: null
+  };
+  this._class = [];
+  if (this._className) {
+    this._class.push(this._className);
+  }
+  this._init();
+}
+
+Button.prototype = {
+  constructor: Button,
+  /**
+   *
+   * @private
+   */
+  _init: function _init() {
+    this._render();
+    this._initEventBind();
+  },
+  /**
+   *
+   * @private
+   */
+  _render: function _render() {
+    this._resetStyle();
+    this._dom.container.append(_util2.default.strReplace(_button2.default, {
+      iconClass: this._icon.iconClass,
+      displayIcon: this._icon.show ? 'inline-block' : 'none',
+      content: this._content
+    }));
+
+    this._dom.content = this._dom.container.find('span');
+    this._dom.icon = this._dom.container.find('i');
+  },
+  /**
+   *
+   * @private
+   */
+  _resetStyle: function _resetStyle() {
+    this._dom.container.addClass(this._class.join(' '));
+    this._dom.container.attr('class', '');
+
+    var mainClass = this._theme + '-' + this._type;
+
+    this._dom.container.addClass('zg-button').addClass(this._icon.show && !this._content ? 'only-icon' : '').addClass(this._theme === this._type ? 'normal' : mainClass).addClass(this._size === 'normal' ? 'normal-size' : this._size);
+
+    if (this._disabled) {
+      this._dom.container.addClass(this._theme === 'normal' ? 'normal-disable' : 'border-disable');
+    }
+  },
+  /**
+   *
+   * @private
+   */
+  _initEventBind: function _initEventBind() {
+    this._dom.container.bind('click', this, this.__onClick);
+  },
+  /**
+   *
+   * @private
+   */
+  __onClick: function __onClick(event) {
+    var context = event.data;
+    var callback = context._onClick;
+    if (_util2.default.isFunction(callback)) {
+      callback.call(context);
+    }
+  },
+  /**
+   *
+   * @param flag
+   * @returns {Button}
+   */
+  disable: function disable(flag) {
+    this._disabled = flag;
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param type
+   * @returns {Button}
+   */
+  setType: function setType(type) {
+    this._type = type;
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param content
+   * @returns {Button}
+   */
+  setContent: function setContent(content) {
+    this._content = content;
+    this._dom.content.text(content);
+    this._resetStyle();
+    return this;
+  },
+  /**
+   *
+   * @param clazz
+   */
+  addClass: function addClass(clazz) {
+    this._class.push(clazz);
+    this._dom.container.addClass(clazz);
+    return this;
+  },
+  /**
+   *
+   * @param clazz
+   */
+  removeClass: function removeClass(clazz) {
+    var index = this._class.indexOf(clazz);
+    if (index > -1) {
+      this._class.splice(index, 1);
+      this._dom.container.removeClass(clazz);
+    }
+    return this;
+  },
+  /**
+   *
+   */
+  destroy: function destroy() {
+    this._dom.container.unbind('click');
+    this._dom.container.remove();
+  }
+};
+
+exports.default = Button;
 
 /***/ }),
 /* 4 */

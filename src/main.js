@@ -4,3 +4,10 @@
  * @author yqdong
  *
  */
+import button from './components/button/button'
+import buttonGroup from './components/button/buttonGroup'
+
+export default {
+  button,
+  buttonGroup
+}
