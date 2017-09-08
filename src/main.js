@@ -6,8 +6,10 @@
  */
 import button from './components/button/button'
 import buttonGroup from './components/button/buttonGroup'
+import zoomPanel from './components/zoomPanel/zoomPanel'
 
 export {
   button,
-  buttonGroup
+  buttonGroup,
+  zoomPanel
 }
