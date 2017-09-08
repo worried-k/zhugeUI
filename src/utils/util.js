@@ -242,6 +242,19 @@ const util = {
   },
   isEmptyObj (obj) {
     return JSON.stringify(obj) === '{}'
+  },
+  /**
+   * 缓存dom元素对象
+   * @param num
+   * @returns {string}
+   */
+  cacheElementObj (cacheObj, container, randomId) {
+    for (let name in cacheObj) {
+      let element = container.find('#' + name + randomId)
+      if (element.length) {
+        cacheObj[name] = element
+      }
+    }
   }
 }
 export default util

@@ -51,25 +51,24 @@ class ZoomPanel {
     }))
     this._dom.container.append(this._dom.layout)
 
-    for (let name in this._dom) {
-      let el = this._dom.container.find('#' + name + this.id)
-      if (el.length) {
-        this._dom[name] = el
-      }
-    }
+    util.cacheElementObj(this._dom, this._dom.container, this.id)
   }
 
   _initEventBind () {
     this._dom.zoomBtn.on('click', () => {
-      if (this._store.isFull) {
-        this._onRevert()
-      } else {
-        this._onFullScreen()
-      }
-      if (util.isFunction(this._options.onResize)) {
-        this._options.onResize(this._store.isFull)
-      }
+      this._onZoomBtnClick()
     })
+  }
+
+  _onZoomBtnClick () {
+    if (this._store.isFull) {
+      this._onRevert()
+    } else {
+      this._onFullScreen()
+    }
+    if (util.isFunction(this._options.onResize)) {
+      this._options.onResize(this._store.isFull)
+    }
   }
 
   _onFullScreen () {
