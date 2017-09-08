@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/struggling-bird/zhugeUI#readme",
   "dependencies": {
-    "jquery": "2.1.4"
+    "d3": "3.5.17",
+    "jquery": "2.1.4",
+    "zrender": "3.0.9"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

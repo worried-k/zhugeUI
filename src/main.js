@@ -6,8 +6,13 @@
  */
 import button from './components/button/button'
 import buttonGroup from './components/button/buttonGroup'
+import zoomAbleSunburst from './components/charts/sunburst/zoomAbleSunburst'
 
+let charts = {
+  zoomAbleSunburst
+}
 export {
   button,
-  buttonGroup
+  buttonGroup,
+  charts
 }

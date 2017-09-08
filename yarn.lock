@@ -1317,6 +1317,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+d3@3.5.17:
+  version "3.5.17"
+  resolved "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
+
 d@1:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/d/download/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -4876,3 +4880,7 @@ zhugeui@^1.0.2:
   resolved "https://registry.npmjs.org/zhugeui/-/zhugeui-1.0.2.tgz#d64bd00e826087947950ed013bf084e40be5995f"
   dependencies:
     jquery "2.1.4"
+
+zrender@3.0.9:
+  version "3.0.9"
+  resolved "https://registry.npmjs.org/zrender/-/zrender-3.0.9.tgz#0709f94dea4ad2ea655e413a460021cd98af0d0b"
