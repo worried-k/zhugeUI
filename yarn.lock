@@ -4870,3 +4870,9 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zhugeui@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/zhugeui/-/zhugeui-1.0.2.tgz#d64bd00e826087947950ed013bf084e40be5995f"
+  dependencies:
+    jquery "2.1.4"
